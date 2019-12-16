@@ -25,7 +25,9 @@ const getUserLocalIp = () => {
   });
 
   function iterateIP(ip) {
-    if (!localIPs[ip]) resolve(ip);
+    if (!localIPs[ip]) {
+      resolve(ip);
+    }
     localIPs[ip] = true;
   }
 
@@ -35,11 +37,18 @@ const getUserLocalIp = () => {
   // create offer and set local description
   pc.createOffer()
     .then(function(sdp) {
+      var counter = 0;
       sdp.sdp.split("\n").forEach(function(line) {
-        if (line.indexOf("candidate") < 0) return;
+        if (line.indexOf("candidate") < 0) {
+          return;
+        }
         line.match(ipRegex).forEach(iterateIP);
+        counter++;
       });
       pc.setLocalDescription(sdp, noop, noop);
+      if (counter === 0) {
+        reject();
+      }
     })
     .catch(reject);
 

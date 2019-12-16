@@ -1,26 +1,9 @@
 import "./style/index.scss";
-var QRCode = require("qrcode");
-import Store from "./modules/Store/Store";
+import "./components/QRGenerator/QRGenerator";
 
-const canvas = document.getElementById("canvas");
-const storeName = document.querySelector(".App__storeName");
+import React from "react";
+import ReactDOM from "react-dom";
 
-Store.getQRString()
-  .then(data => {
-    storeName.innerHTML = data.storeName;
+const container = document.getElementById("ReactApp");
 
-    QRCode.toCanvas(
-      canvas,
-      data.qrString,
-      {
-        width: 300,
-        height: 300
-      },
-      function(error) {
-        if (error) console.error(error);
-      }
-    );
-  })
-  .catch(error => {
-    storeName.innerHTML = "No se encontraron tiendas disponibles";
-  });
+// ReactDOM.render("Hola", container);
