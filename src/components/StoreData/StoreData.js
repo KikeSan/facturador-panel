@@ -1,3 +1,6 @@
+import axios from "axios";
+import config from "components/Config/Config";
+
 /**
  * Obtiene la IP de la máquina local del usuario
  * @returns promise
@@ -77,16 +80,11 @@ const getCode = () => {
     getUserLocalIp()
       .then(_ip => {
         const red = _ip.split(".", 3).join(".");
-        const PATH = "http://10.100.5.225/facturador-qr";
-        //const PATH = "";
 
-        // Le el archivo JSON de tiendas
-        fetch(PATH + "/data/stores.json")
-          .then(response => {
-            return response.json();
-          })
+        axios
+          .get(config.PATH + "/data/stores.json")
           .then(function(response) {
-            const StoreData = response.data;
+            const StoreData = response.data.stores;
 
             // Busca el código de tienda
             const storeCodeList = StoreData.filter(store => {

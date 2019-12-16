@@ -10,6 +10,9 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "app.min.js"
   },
+  node: {
+    fs: "empty"
+  },
   resolve: {
     extensions: ["tsx", ".ts", ".js"],
     alias: {
