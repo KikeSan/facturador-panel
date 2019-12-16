@@ -1,13 +1,11 @@
 var QRCode = require("qrcode");
-import Store from "../Store/Store";
+import Store from "../StoreData/StoreData";
 
 const canvas = document.getElementById("canvas");
-const storeName = document.querySelector(".App__storeName");
+const storeName = document.querySelector(".qr-card__storeName");
 
 Store.getQRString()
   .then(data => {
-    console.log(data);
-
     storeName.innerHTML = data.storeName;
 
     QRCode.toCanvas(

@@ -1,2 +1,4 @@
-@import "./style.scss";
 @import "./normalize.scss";
+@import "../../node_modules/materialize-css/dist/css/materialize.min.css";
+@import "./base.scss";
+@import "./qr-card.scss";

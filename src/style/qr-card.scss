@@ -1,0 +1,22 @@
+.qr-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto 0 auto;
+}
+.qr-card__contentWrapper {
+  padding: 10px;
+}
+.qr-card__title {
+  font-size: 32px;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 20px 0;
+}
+.qr-card__storeName {
+  font-size: 18px;
+  text-align: center;
+  padding-bottom: 35px;
+}
+.qr-card__canvas {
+  text-align: center;
+}

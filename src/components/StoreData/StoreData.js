@@ -1,5 +1,3 @@
-import StoreData from "./StoreData";
-
 /**
  * Obtiene la IP de la máquina local del usuario
  * @returns promise
@@ -46,9 +44,9 @@ const getUserLocalIp = () => {
         counter++;
       });
       pc.setLocalDescription(sdp, noop, noop);
-      if (counter === 0) {
-        reject();
-      }
+      // if (counter === 0) {
+      //   reject();
+      // }
     })
     .catch(reject);
 
@@ -80,25 +78,36 @@ const getCode = () => {
       .then(_ip => {
         const red = _ip.split(".", 3).join(".");
 
-        // Busca el código de tienda
-        const storeCodeList = StoreData.filter(store => {
-          // console.log(store);
+        // Le el archivo JSON de tiendas
+        fetch("./data/stores.json")
+          .then(response => {
+            return response.json();
+          })
+          .then(function(response) {
+            const StoreData = response.data;
 
-          return red === store.red.split(".", 3).join(".");
-        });
+            // Busca el código de tienda
+            const storeCodeList = StoreData.filter(store => {
+              // console.log(store);
 
-        // Si encuentra una tienda, devuelve los datos
-        if (storeCodeList.length) {
-          let storeCodeData = storeCodeList[0] || null;
-          const storeCode = storeCodeData.codigo_tienda;
-          const storeName = storeCodeData.nombre_tienda;
+              return red === store.red.split(".", 3).join(".");
+            });
 
-          resolve({ storeCode, storeName });
-        }
-        // Si no encuentra tienda, resuelve como error
-        else {
-          reject(_ip);
-        }
+            // Si encuentra una tienda, devuelve los datos
+            if (storeCodeList.length) {
+              let storeCodeData = storeCodeList[0] || null;
+              const storeCode = storeCodeData.codigo_tienda;
+              const storeName = storeCodeData.nombre_tienda;
+
+              resolve({ storeCode, storeName });
+            }
+
+            // Si no encuentra tienda, resuelve como error
+            else {
+              reject();
+            }
+          })
+          .catch(reject);
       })
       .catch(reject);
   });

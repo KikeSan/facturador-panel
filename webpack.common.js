@@ -1,4 +1,5 @@
 const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV !== "production";
@@ -38,6 +39,12 @@ module.exports = {
     ]
   },
   plugins: [
+    new CopyPlugin([
+      {
+        from: "./src/data/stores.json",
+        to: "./data/stores.json"
+      }
+    ]),
     new MiniCssExtractPlugin({
       filename: devMode ? "[name].css" : "[name].[hash].css"
     }),
