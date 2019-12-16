@@ -77,9 +77,11 @@ const getCode = () => {
     getUserLocalIp()
       .then(_ip => {
         const red = _ip.split(".", 3).join(".");
+        const PATH = "http://10.100.5.225/facturador-qr";
+        //const PATH = "";
 
         // Le el archivo JSON de tiendas
-        fetch("./data/stores.json")
+        fetch(PATH + "/data/stores.json")
           .then(response => {
             return response.json();
           })

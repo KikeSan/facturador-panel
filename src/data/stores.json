@@ -6,8 +6,7 @@
       "nombre_tienda": "Nike Boulevard",
       "cod_establecimiento": "0058",
       "cod_concepto": "NIKE",
-      "red": "10.100.1.xx",
-      "red2": "10.23.0.xx"
+      "red": "10.23.0.xx"
     },
     {
       "codigo_empresa": "P100",
@@ -327,7 +326,8 @@
       "nombre_tienda": "MRT Miraflores",
       "cod_establecimiento": "0014",
       "cod_concepto": "MARATHON",
-      "red": "10.36.0.xx"
+      "red": "10.100.1.xx",
+      "red2": "10.36.0.xx"
     },
     {
       "codigo_empresa": "P202",
