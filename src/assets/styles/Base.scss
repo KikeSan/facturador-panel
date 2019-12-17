@@ -1,0 +1,11 @@
+@import "./normalize.scss";
+@import "../../../node_modules/materialize-css/dist/css/materialize.min.css";
+
+body,
+html {
+  font-family: "Oswald", arial, sans-serif;
+}
+body *,
+html * {
+  box-sizing: border-box;
+}

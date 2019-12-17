@@ -8,7 +8,8 @@ module.exports = merge(common, {
   devtool: "inline-source-map",
   devServer: {
     contentBase: path.resolve(__dirname, "dist"),
-    writeToDisk: true
+    writeToDisk: true,
+    historyApiFallback: true
   },
   plugins: [
     new Dotenv({

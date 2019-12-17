@@ -1,31 +1,23 @@
-// import React from "react";
-// import QRCode from "qrcode.react";
-// import Store from "../StoreData/StoreData";
+import React from 'react';
+import '../../assets/styles/components/QRCard.scss';
 
-// class QRCard extends React.Component {
-//   constructor(props) {}
+// import QRCode from 'qrcode.react';
+// import Store from '../StoreData/StoreData';
 
-//   componentDidMount() {
-//     fetch("https://api.mydomain.com")
-//       .then(response => response.json())
-//       .then(data => this.setState({ data }));
-//   }
 
-//   render() {
-//     return (
-//       <div class="qr-card__contentWrapper">
-//         <div class="qr-card card blue-grey darken-1">
-//           <div class="card-content white-text">
-//             <span class="qr-card__title card-title">Tienda</span>
-//             <div class="qr-card__storeName"></div>
-//             <div class="qr-card__canvas">
-//               <QRCode value="http://facebook.github.io/react/" />
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
 
-// export default QRCard;
+const QRCard = () => (
+  <div className="qrcard__contentWrapper">
+    <div className="qrcard">
+      <div className="card blue-grey darken-1">
+        <div className="card-content white-text">
+          <span className="qrcard__title card-title">Tienda</span>
+          <div className="qrcard__storeName" />
+          <div className="qrcard__canvas" />
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+export default QRCard;
