@@ -21,4 +21,11 @@
 }
 .qrcard__canvas {
   text-align: center;
+  canvas {
+    border: 10px solid #fff;
+  }
+
+  .is-hidden {
+    display: none;
+  }
 }

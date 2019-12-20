@@ -43,12 +43,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new CopyPlugin([
-      {
-        from: './src/data/stores.json',
-        to: './data/stores.json',
-      },
-    ]),
     new MiniCssExtractPlugin({
       filename: devMode ? '[name].css' : '[name].[hash].css',
     }),

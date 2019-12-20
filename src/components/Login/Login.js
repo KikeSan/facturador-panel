@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "../../assets/styles/components/Login.scss";
 
 const Login = () => {
+  useEffect((params) => {
+    let isSubscribed = true;
+
+    return () => (isSubscribed = false);
+  }, []);
+
   return(
     <div className="login">
       <div className="card blue-grey darken-1">

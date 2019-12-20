@@ -81,15 +81,22 @@ const getCode = () => {
         const red = _ip.split('.', 3).join('.');
 
         axios
-          .get(`${config.PATH}/data/stores.json`)
+          .get(`${config.API_TIENDAS}`)
           .then((response) => {
-            const StoreData = response.data.stores;
+
+
+            const StoreData = response.data.result;
+            // console.log(StoreData);
 
             // Busca el código de tienda
-            const storeCodeList = StoreData.filter((store) =>
-            // console.log(store);
+            const storeCodeList = StoreData.filter((store) => {
+              if (store.segmento_red !== null) {
+                // console.log(">", red, store.segmento_red.split('.', 3).join('.'));
 
-              red === store.red.split('.', 3).join('.'));
+                return red === store.segmento_red.split('.', 3).join('.');
+              }
+
+            });
 
             // Si encuentra una tienda, devuelve los datos
             if (storeCodeList.length) {
@@ -99,9 +106,9 @@ const getCode = () => {
 
               resolve({ storeCode, storeName });
             }
-
             // Si no encuentra tienda, resuelve como error
             else {
+              // console.log("error x");
               reject();
             }
           })
@@ -122,6 +129,8 @@ function getQRString() {
   return new Promise((resolve, reject) => {
     getCode()
       .then((data) => {
+        console.log("data", data);
+
         // Crea el texto para generar el QR
         const qrString = `${data.storeCode}|${new Date().getTime()}`;
         const { storeName } = data;
@@ -129,7 +138,8 @@ function getQRString() {
         const response = { qrString, storeName };
         resolve(response);
       })
-      .catch(() => {
+      .catch((error) => {
+        // No se encuentra una tienda para la IP
         reject();
       });
   });
