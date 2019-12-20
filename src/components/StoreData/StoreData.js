@@ -81,7 +81,7 @@ const getCode = () => {
         const red = _ip.split('.', 3).join('.');
 
         axios
-          .get(`${config.API_TIENDAS}`)
+          .get(`${config.API_URL.TIENDAS}`)
           .then((response) => {
 
 
