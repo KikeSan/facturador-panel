@@ -2,7 +2,7 @@ import React from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Home from '../containers/Home';
 import ChangePassword from '../containers/ChangePassword';
-import CreateUser from '../components/CreateUser/CreateUser';
+import CreateUser from '../containers/CreateUser';
 
 const MainRouter = () => {
 

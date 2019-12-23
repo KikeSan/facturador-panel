@@ -50,7 +50,7 @@ const QRCard = () => {
   return (
     <div className="qrcard__contentWrapper">
       <div className="qrcard">
-        <div className="card blue-grey darken-1">
+        <div className="card blue-grey darken-2">
           <div className="card-content white-text">
             <span className="qrcard__title card-title">Tienda</span>
             <div className="qrcard__storeName">{qrOptions.storeName}</div>

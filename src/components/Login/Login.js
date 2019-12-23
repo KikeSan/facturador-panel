@@ -28,11 +28,13 @@ const Login = (props) => {
 
     console.log(userData);
     const apiUrl = Config.API_URL.LOGIN;
+    console.log(apiUrl);
+
 
     axios
       .post( apiUrl, userData )
       .then((response) => {
-        console.log(">", response);
+        console.log("login >", response);
 
         // Valida que se haya logueado correctamente
         if (response.status === 200) {
@@ -59,7 +61,7 @@ const Login = (props) => {
 
   return(
     <div className="login">
-      <div className="card blue-grey darken-1">
+      <div className="card blue-grey darken-2">
         <div className="card-content white-text">
           <div className="row">
             <form className="col s12" onSubmit={handleSubmit}>

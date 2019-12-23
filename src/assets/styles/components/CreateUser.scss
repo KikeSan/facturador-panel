@@ -12,4 +12,14 @@
     }
   }
 
+  .modal {
+    &.is-visible {
+      z-index: 1003;
+      display: block;
+      opacity: 1;
+      top: 10%;
+      transform: scaleX(1) scaleY(1);
+    }
+  }
+
 }
