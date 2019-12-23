@@ -4,9 +4,7 @@
     "browser": true,
     "es6": true
   },
-  "extends": [
-    "airbnb"
-  ],
+  "extends": ["airbnb"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -19,13 +17,19 @@
     "sourceType": "module"
   },
   "rules": {
+    "max-len": [
+      1,
+      170,
+      4,
+      {
+        "ignorePattern": "^import\\s.+\\sfrom\\s.+;$",
+        "ignoreUrls": true
+      }
+    ],
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
+        "extensions": [".js", ".jsx"]
       }
     ]
   }
