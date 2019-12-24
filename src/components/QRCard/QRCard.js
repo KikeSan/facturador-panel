@@ -1,31 +1,67 @@
-// import React from "react";
-// import QRCode from "qrcode.react";
-// import Store from "../StoreData/StoreData";
+import React, { useState, useEffect, useRef } from 'react';
+import QRCode from 'qrcode.react';
+import StoreData from '../StoreData/StoreData';
 
-// class QRCard extends React.Component {
-//   constructor(props) {}
+import '../../assets/styles/components/QRCard.scss';
 
-//   componentDidMount() {
-//     fetch("https://api.mydomain.com")
-//       .then(response => response.json())
-//       .then(data => this.setState({ data }));
-//   }
 
-//   render() {
-//     return (
-//       <div class="qr-card__contentWrapper">
-//         <div class="qr-card card blue-grey darken-1">
-//           <div class="card-content white-text">
-//             <span class="qr-card__title card-title">Tienda</span>
-//             <div class="qr-card__storeName"></div>
-//             <div class="qr-card__canvas">
-//               <QRCode value="http://facebook.github.io/react/" />
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
+// Componente funcional
+const QRCard = () => {
 
-// export default QRCard;
+  // Definimos los estados
+  const [qrOptions, updateQROptions] = useState({
+    className: 'is-hidden',
+    text: '',
+    storeName: 'Buscando tienda ...'
+  });
+
+  useEffect (() => {
+    let isSubscribed = true;
+
+    StoreData.getQRString().then((data)=>{
+
+      setTimeout(() => {
+        if (!isSubscribed) return false;
+
+        updateQROptions({
+          className: '',
+          text: data.qrString,
+          storeName: data.storeName
+        });
+      }, 500);
+
+
+    }).catch((message) => {
+      if (!isSubscribed) return false;
+
+      // Actualiza la UI cuando no se encontró una tienda
+      updateQROptions({
+        className: 'is-hidden',
+        text: '',
+        storeName: 'Esta red no tiene una tienda asignada.'
+      });
+
+    });
+
+    return () => (isSubscribed = false);
+
+  }, []);
+
+  return (
+    <div className="qrcard__contentWrapper">
+      <div className="qrcard">
+        <div className="card blue-grey darken-2">
+          <div className="card-content white-text">
+            <span className="qrcard__title card-title">Tienda</span>
+            <div className="qrcard__storeName">{qrOptions.storeName}</div>
+            <div className="qrcard__canvas">
+              <QRCode value={qrOptions.text} className={qrOptions.className} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default QRCard;

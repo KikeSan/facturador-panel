@@ -1,0 +1,25 @@
+.create-user {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+
+  .card-title {
+    font-size: 20px !important;
+    i {
+      vertical-align: bottom;
+    }
+  }
+
+  .modal {
+    &.is-visible {
+      z-index: 1003;
+      display: block;
+      opacity: 1;
+      top: 10%;
+      transform: scaleX(1) scaleY(1);
+    }
+  }
+
+}

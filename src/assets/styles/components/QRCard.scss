@@ -1,22 +1,31 @@
-.qr-card {
+.qrcard {
   width: 100%;
   max-width: 600px;
-  margin: 20px auto 0 auto;
+  margin: 0 auto;
+  display: block;
 }
-.qr-card__contentWrapper {
+.qrcard__contentWrapper {
   padding: 10px;
+
 }
-.qr-card__title {
+.qrcard__title {
   font-size: 32px;
   text-align: center;
   text-transform: uppercase;
   padding: 20px 0;
 }
-.qr-card__storeName {
+.qrcard__storeName {
   font-size: 18px;
   text-align: center;
   padding-bottom: 35px;
 }
-.qr-card__canvas {
+.qrcard__canvas {
   text-align: center;
+  canvas {
+    border: 10px solid #fff;
+  }
+
+  .is-hidden {
+    display: none;
+  }
 }

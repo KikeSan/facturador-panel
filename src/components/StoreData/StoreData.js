@@ -1,26 +1,28 @@
+import axios from 'axios';
+import config from 'components/Config/Config';
+
 /**
  * Obtiene la IP de la máquina local del usuario
  * @returns promise
  * @memberOf Store
  */
 const getUserLocalIp = () => {
-  //compatibility for firefox and chrome
-  var myPeerConnection =
-    window.RTCPeerConnection ||
-    window.mozRTCPeerConnection ||
-    window.webkitRTCPeerConnection;
-  var pc = new myPeerConnection({ iceServers: [] });
-  var noop = function() {};
-  var localIPs = {};
-  var ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g;
-  var key;
+  // compatibility for firefox and chrome
+  const myPeerConnection = window.RTCPeerConnection
+    || window.mozRTCPeerConnection
+    || window.webkitRTCPeerConnection;
+  const pc = new myPeerConnection({ iceServers: [] });
+  const noop = function () {};
+  const localIPs = {};
+  const ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g;
+  let key;
 
-  var resolve;
-  var reject;
-  var promise = new Promise(function(res, rej) {
+  let resolve;
+  let reject;
+  const promise = new Promise(((res, rej) => {
     resolve = res;
     reject = rej;
-  });
+  }));
 
   function iterateIP(ip) {
     if (!localIPs[ip]) {
@@ -29,15 +31,15 @@ const getUserLocalIp = () => {
     localIPs[ip] = true;
   }
 
-  //create a bogus data channel
-  pc.createDataChannel("");
+  // create a bogus data channel
+  pc.createDataChannel('');
 
   // create offer and set local description
   pc.createOffer()
-    .then(function(sdp) {
-      var counter = 0;
-      sdp.sdp.split("\n").forEach(function(line) {
-        if (line.indexOf("candidate") < 0) {
+    .then((sdp) => {
+      let counter = 0;
+      sdp.sdp.split('\n').forEach((line) => {
+        if (line.indexOf('candidate') < 0) {
           return;
         }
         line.match(ipRegex).forEach(iterateIP);
@@ -50,13 +52,13 @@ const getUserLocalIp = () => {
     })
     .catch(reject);
 
-  //listen for candidate events
-  pc.onicecandidate = function(ice) {
+  // listen for candidate events
+  pc.onicecandidate = function (ice) {
     if (
-      !ice ||
-      !ice.candidate ||
-      !ice.candidate.candidate ||
-      !ice.candidate.candidate.match(ipRegex)
+      !ice
+      || !ice.candidate
+      || !ice.candidate.candidate
+      || !ice.candidate.candidate.match(ipRegex)
     ) {
       return;
     }
@@ -75,37 +77,38 @@ const getCode = () => {
   const promise = new Promise((resolve, reject) => {
     // Consulta la IP local
     getUserLocalIp()
-      .then(_ip => {
-        const red = _ip.split(".", 3).join(".");
-        const PATH = "http://10.100.5.225/facturador-qr";
-        //const PATH = "";
+      .then((_ip) => {
+        const red = _ip.split('.', 3).join('.');
 
-        // Le el archivo JSON de tiendas
-        fetch(PATH + "/data/stores.json")
-          .then(response => {
-            return response.json();
-          })
-          .then(function(response) {
-            const StoreData = response.data;
+        axios
+          .get(`${config.API_URL.TIENDAS}`)
+          .then((response) => {
+
+
+            const StoreData = response.data.result;
+            // console.log(StoreData);
 
             // Busca el código de tienda
-            const storeCodeList = StoreData.filter(store => {
-              // console.log(store);
+            const storeCodeList = StoreData.filter((store) => {
+              if (store.segmento_red !== null) {
+                // console.log(">", red, store.segmento_red.split('.', 3).join('.'));
 
-              return red === store.red.split(".", 3).join(".");
+                return red === store.segmento_red.split('.', 3).join('.');
+              }
+
             });
 
             // Si encuentra una tienda, devuelve los datos
             if (storeCodeList.length) {
-              let storeCodeData = storeCodeList[0] || null;
+              const storeCodeData = storeCodeList[0] || null;
               const storeCode = storeCodeData.codigo_tienda;
               const storeName = storeCodeData.nombre_tienda;
 
               resolve({ storeCode, storeName });
             }
-
             // Si no encuentra tienda, resuelve como error
             else {
+              // console.log("error x");
               reject();
             }
           })
@@ -125,15 +128,18 @@ const getCode = () => {
 function getQRString() {
   return new Promise((resolve, reject) => {
     getCode()
-      .then(data => {
+      .then((data) => {
+        console.log("data", data);
+
         // Crea el texto para generar el QR
-        const qrString = data.storeCode + "|" + new Date().getTime();
-        const storeName = data.storeName;
+        const qrString = `${data.storeCode}|${new Date().getTime()}`;
+        const { storeName } = data;
 
         const response = { qrString, storeName };
         resolve(response);
       })
-      .catch(function() {
+      .catch((error) => {
+        // No se encuentra una tienda para la IP
         reject();
       });
   });
