@@ -7,30 +7,26 @@ import '../../assets/styles/components/QRCard.scss';
 
 // Componente funcional
 const QRCard = () => {
-
   // Definimos los estados
   const [qrOptions, updateQROptions] = useState({
     className: 'is-hidden',
     text: '',
-    storeName: 'Buscando tienda ...'
+    storeName: 'Buscando tienda ...',
   });
 
-  useEffect (() => {
+  useEffect(() => {
     let isSubscribed = true;
 
-    StoreData.getQRString().then((data)=>{
-
+    StoreData.getQRString().then((data) => {
       setTimeout(() => {
         if (!isSubscribed) return false;
 
         updateQROptions({
           className: '',
           text: data.qrString,
-          storeName: data.storeName
+          storeName: data.storeName,
         });
       }, 500);
-
-
     }).catch((message) => {
       if (!isSubscribed) return false;
 
@@ -38,13 +34,11 @@ const QRCard = () => {
       updateQROptions({
         className: 'is-hidden',
         text: '',
-        storeName: 'Esta red no tiene una tienda asignada.'
+        storeName: 'Esta red no tiene una tienda asignada.',
       });
-
     });
 
     return () => (isSubscribed = false);
-
   }, []);
 
   return (
@@ -62,6 +56,6 @@ const QRCard = () => {
       </div>
     </div>
   );
-}
+};
 
 export default QRCard;
