@@ -1,6 +1,6 @@
 import React from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
-import Home from '../containers/Home';
+import { Redirect, HashRouter, Route, Switch } from 'react-router-dom';
+import QRCard from '../containers/QRCard';
 import ChangePassword from '../containers/ChangePassword';
 import CreateUser from '../containers/CreateUser';
 
@@ -10,7 +10,8 @@ const MainRouter = () => {
     <HashRouter>
 
       <Switch>
-        <Route path="/" component={Home} exact/>
+        <Redirect from="/" to="/qr-code" exact/>
+        <Route path="/qr-code" component={QRCard} exact />
         <Route path="/change-password" component={ChangePassword} exact />
         <Route path="/create-user" component={CreateUser} exact />
       </Switch>
