@@ -3,26 +3,27 @@ import {
   Redirect, HashRouter, Route, Switch,
 } from 'react-router-dom';
 
-import { isAuthenticated, authenticate } from '../components/Authentication/Authentication';
-
 import NavigationComponent from '../components/Navigation/Navigation';
-import QRCard from '../containers/QRCard';
-import ChangePassword from '../containers/ChangePassword';
-import CreateUser from '../containers/CreateUser';
-
-console.log('isAuthenticated', isAuthenticated());
-authenticate();
-console.log('isAuthenticated', isAuthenticated());
+import QRCardContainer from '../containers/QRCard';
+import ChangePasswordComponent from '../components/ChangePassword/ChangePassword';
+import CreateUserContainer from '../containers/CreateUser';
+import LoginComponent from '../components/Login/Login';
 
 const MainRouter = () => (
 
   <HashRouter>
     <NavigationComponent />
     <Switch>
+      <Route exact path="/qr-code" component={QRCardContainer} />
+      <Route
+        exact
+        path="/change-password"
+        render={() => (
+          <LoginComponent render={(_userData) => (<ChangePasswordComponent userData={_userData} />)} />
+        )}
+      />
+      <Route exact path="/create-user" component={CreateUserContainer} />
       <Redirect from="/" to="/qr-code" exact />
-      <Route path="/qr-code" component={QRCard} exact />
-      <Route path="/change-password" component={ChangePassword} exact />
-      <Route path="/create-user" component={CreateUser} exact />
     </Switch>
 
   </HashRouter>

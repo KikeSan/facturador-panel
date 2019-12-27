@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import LoginComponent from '../components/Login/Login';
 import ChangePasswordComponent from '../components/ChangePassword/ChangePassword';
 
 const ChangePassword = () => {
+  console.log('changePassword');
+
   // Confirmación de contraseña actualizada
   const [passwordChanged, setpasswordChanged] = useState(false);
 
@@ -16,19 +17,9 @@ const ChangePassword = () => {
   // Estado que indica si el usuario está autenticado o no
   const [authorizedUser, setAuthorizedUser] = useState(false);
 
-
   return (
     <div className="MainWrapper">
-
-      {/* Valida que exista un dni de usuario logueado */}
-      {userData.dni !== null && passwordChanged === false
-        ? <ChangePasswordComponent userData={userData} confirmPasswordChange={(_value) => setpasswordChanged(_value)} />
-        : null}
-
-      {!authorizedUser || passwordChanged === true
-        ? <LoginComponent changeUserData={(_userData) => setUserData(_userData)} changeAuthorizedValue={(_newValue) => setAuthorizedUser(_newValue)} />
-        : null}
-
+      <ChangePasswordComponent userData={userData} confirmPasswordChange={(_value) => setpasswordChanged(_value)} />
     </div>
   );
 };

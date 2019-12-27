@@ -1,43 +1,33 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import axios from 'axios';
 
 // Material Ui components
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import {
+  Button, Card, CardContent, CardHeader, Avatar, Grid, TextField,
+} from '@material-ui/core';
 
 import Config from '../Config/Config';
 import '../../assets/styles/components/ChangePassword.scss';
 
 const ChangePasswordComponent = (props) => {
   const { dni, nombres, apellidos } = props.userData;
-  const [newPassword, setNewPassword] = useState('');
 
-  const validateForm = () => newPassword.length > 0;
+  const [newPasswordState, setNewPasswordState] = useState('');
+
+  const validateForm = () => newPasswordState.length > 0;
 
   const authenticate = () => {
-    const data = {
-      dni,
-      contrasena: newPassword,
-    };
-
     const apiUrl = Config.API_URL.UPDATE_PASSWORD;
 
     axios
-      .put(apiUrl, data)
+      .put(apiUrl, {
+        dni,
+        contrasena: newPasswordState,
+      })
       .then((response) => {
-        // throw new Error('Whoops!');
-
         console.log('change pasword response:', response);
         if (response.status === 200) {
-          // Ejecuta callback para confirmar el cambio de contraseña
-          props.confirmPasswordChange(true);
-        } else {
-          console.log('Algo salió mal');
+          console.log('cambio de contraseña exitoso');
         }
       })
       .catch((error) => {
@@ -64,7 +54,7 @@ const ChangePasswordComponent = (props) => {
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <TextField id="new_password" label="Actualizar contraseña" type="password" value={newPassword} onChange={(event) => setNewPassword(event.target.value)} variant="outlined" fullWidth />
+                <TextField id="new_password" label="Actualizar contraseña" type="password" value={newPasswordState} onChange={(event) => setNewPasswordState(event.target.value)} variant="outlined" fullWidth />
               </Grid>
               <Grid item xs={12}>
                 <Button type="submit" variant="contained" disabled={!validateForm()} color="secondary">Confirmar</Button>
