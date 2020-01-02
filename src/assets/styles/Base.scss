@@ -1,11 +1,92 @@
 @import "./normalize.scss";
+@import "./Variables.scss";
 // @import "../../../node_modules/materialize-css/dist/css/materialize.min.css";
 
 body,
 html {
   font-family: "Oswald", arial, sans-serif;
+  background-color: $smoke;
 }
 body *,
 html * {
   box-sizing: border-box;
+}
+.fondoAzul {
+  background-color: $azul !important;
+}
+.fondoBlanco {
+  background-color: $blanco;
+}
+
+.textoGris {
+  color: $grisDark;
+}
+.textoBlanco {
+  color: $blanco;
+}
+
+.tituloPage {
+  padding: 15px;
+  display: flex;
+}
+.tituloPage__icon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+.tituloPage__texto {
+  padding-left: 12px;
+  display: inline-block;
+  padding-top: 3px;
+}
+
+.card.fondoBlanco {
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0px 3px 6px #dedede;
+}
+
+input:not(.browser-default):focus:not([readonly]).validate {
+  border-bottom: 1px solid $azul;
+  box-shadow: 0 1px 0 0 $azul;
+}
+.btn {
+  background-color: $rojo;
+  border-radius: 4px;
+  box-shadow: none;
+  &:hover {
+    background-color: $rojoDark;
+    box-shadow: none;
+  }
+  &:disabled {
+    background-color: #ffa8ad !important;
+    color: #eaeaea !important;
+  }
+}
+
+.mb0 {
+  margin-bottom: 0;
+}
+
+footer {
+  font-size: 10px;
+  color: $gris;
+  margin-bottom: 30px;
+}
+
+.MuiPaper-elevation1 {
+  box-shadow: 0px 3px 6px #dedede !important;
+}
+.MuiCardContent-root {
+  padding: 30px !important;
+}
+.MuiButton-containedSecondary {
+  background-color: $rojo !important;
+  box-shadow: none !important;
+  &:disabled {
+    background-color: $gris !important;
+  }
+  &:hover {
+    background-color: $rojoDark !important;
+  }
 }

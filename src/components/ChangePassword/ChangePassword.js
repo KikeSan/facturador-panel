@@ -11,6 +11,7 @@ import {
   Grid,
   TextField
 } from "@material-ui/core";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
 
 import Config from "../Config/Config";
 import "../../assets/styles/components/ChangePassword.scss";
@@ -51,6 +52,11 @@ const ChangePasswordComponent = props => {
   return (
     <div className="change-password">
       <Card>
+        <div className="tituloPage fondoAzul textoBlanco">
+          {/* <i className="material-icons tituloPage__icon">verified_user</i> */}
+          <LockOpenIcon />
+          <span className="tituloPage__texto">Cambiar contraseña</span>
+        </div>
         <CardHeader
           avatar={
             <Avatar aria-label="recipe" className="">
@@ -74,7 +80,7 @@ const ChangePasswordComponent = props => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} container justify="flex-end">
                 <Button
                   type="submit"
                   variant="contained"

@@ -1,5 +1,24 @@
+@import "../Variables.scss";
 .navigation {
   a {
     text-transform: uppercase;
+  }
+  img {
+    margin: 12px;
+  }
+  .MuiAppBar-root {
+    height: 64px;
+  }
+  .MuiTabs-root {
+    right: 0;
+    position: absolute;
+    height: 64px;
+  }
+  .MuiTabs-flexContainer {
+    height: 64px;
+  }
+  .PrivateTabIndicator-root-62 {
+    background-color: $rojo;
+    height: 4px;
   }
 }

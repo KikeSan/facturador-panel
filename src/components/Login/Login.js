@@ -1,24 +1,31 @@
 // React and complements
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 // Material Ui components
 import {
-  makeStyles, Button, Card, CardContent, Grid, TextField,
-} from '@material-ui/core';
+  makeStyles,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  TextField
+} from "@material-ui/core";
+
+import LockIcon from "@material-ui/icons/Lock";
 
 // Personal development
-import SimpleDialog from '../Dialog/SimpleDialog';
-import Config from '../Config/Config';
-import '../../assets/styles/components/Login.scss';
+import SimpleDialog from "../Dialog/SimpleDialog";
+import Config from "../Config/Config";
+import "../../assets/styles/components/Login.scss";
 
 const useStyles = makeStyles({
   card: {
-    minWidth: 275,
-  },
+    minWidth: 275
+  }
 });
 
-const Login = (props) => {
+const Login = props => {
   // Estados para guardar la información del usuario autenticado
   const [userDataState, setUserDataState] = React.useState({});
 
@@ -31,30 +38,31 @@ const Login = (props) => {
   // Estados para el control de información del modal de diálogo
   const [dialogState, setDialogState] = React.useState({
     open: false,
-    title: '',
-    message: '',
+    title: "",
+    message: ""
   });
 
   // Controlador de cierre del modal de diálogo
   const handleCloseDialog = () => {
     setDialogState({
-      open: false,
+      open: false
     });
   };
 
   // Valores ingresados en el formulario
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
-  const [store, setStore] = useState('');
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [store, setStore] = useState("");
 
-  const validateForm = () => password.length > 0 && user.length > 0 && store.length > 2;
+  const validateForm = () =>
+    password.length > 0 && user.length > 0 && store.length > 2;
 
-  const showErrorMessage = (info) => {
-    const title = info.title || 'Error de inicio de sesión';
+  const showErrorMessage = info => {
+    const title = info.title || "Error de inicio de sesión";
     const dialogData = {
       open: true,
       title,
-      message: info.message,
+      message: info.message
     };
     setDialogState(dialogData);
   };
@@ -69,56 +77,99 @@ const Login = (props) => {
       .post(apiUrl, {
         dni: user,
         contrasena: password,
-        tienda: store,
+        tienda: store
       })
-      .then((response) => {
+      .then(response => {
         // Valida que se haya logueado correctamente
         if (response.status === 200) {
           setUserDataState(response.data);
           setIsAuthenticated(true);
         }
       })
-      .catch((error) => {
-        let message = 'Ocurrió un error interno, verifique su conexión a internet o comuníquese con soporte.';
+      .catch(error => {
+        let message =
+          "Ocurrió un error interno, verifique su conexión a internet o comuníquese con soporte.";
 
         // Errores con status identificados
         if (error.response) {
-          if (error.response.status === 401) message = 'No se puede iniciar sesión con los datos proporcionados.';
+          if (error.response.status === 401)
+            message =
+              "No se puede iniciar sesión con los datos proporcionados.";
         }
 
         showErrorMessage({ message });
       });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     callApi();
   };
 
   return (
     <div>
-      {isAuthenticated === true ? childRender() : (
+      {isAuthenticated === true ? (
+        childRender()
+      ) : (
         <div className="login">
-          <SimpleDialog open={dialogState.open} title={dialogState.title} message={dialogState.message} onClose={handleCloseDialog} />
+          <SimpleDialog
+            open={dialogState.open}
+            title={dialogState.title}
+            message={dialogState.message}
+            onClose={handleCloseDialog}
+          />
 
           <Card className={classes.card}>
+            <div className="tituloPage fondoAzul textoBlanco">
+              {/* <i className="material-icons tituloPage__icon">verified_user</i> */}
+              <LockIcon />
+              <span className="tituloPage__texto">Iniciar sesión</span>
+            </div>
             <CardContent>
               <form onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                   <Grid item xs={12}>
-                    <TextField id="user" label="Usuario" value={user} onChange={(event) => setUser(event.target.value)} variant="outlined" fullWidth />
+                    <TextField
+                      id="user"
+                      label="Usuario"
+                      value={user}
+                      onChange={event => setUser(event.target.value)}
+                      variant="outlined"
+                      fullWidth
+                    />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField id="tienda" label="Código de tienda" value={store} onChange={(event) => setStore(event.target.value)} variant="outlined" fullWidth />
+                    <TextField
+                      id="tienda"
+                      label="Código de tienda"
+                      value={store}
+                      onChange={event => setStore(event.target.value)}
+                      variant="outlined"
+                      fullWidth
+                    />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField id="pasword" label="Contraseña" type="password" value={password} onChange={(event) => setPassword(event.target.value)} variant="outlined" fullWidth />
+                    <TextField
+                      id="pasword"
+                      label="Contraseña"
+                      type="password"
+                      value={password}
+                      onChange={event => setPassword(event.target.value)}
+                      variant="outlined"
+                      fullWidth
+                    />
                   </Grid>
-                  <Grid item xs={12}>
-                    <Button disabled={!validateForm()} type="submit" variant="contained" color="secondary">Ingresar</Button>
+                  <Grid item xs={12} container justify="flex-end">
+                    <Button
+                      disabled={!validateForm()}
+                      type="submit"
+                      variant="contained"
+                      color="secondary"
+                    >
+                      Ingresar
+                    </Button>
                   </Grid>
                 </Grid>
-
               </form>
             </CardContent>
           </Card>

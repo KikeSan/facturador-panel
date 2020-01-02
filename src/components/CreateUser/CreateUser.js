@@ -10,6 +10,7 @@ import {
   Grid,
   TextField
 } from "@material-ui/core";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 import SimpleDialog from "../Dialog/SimpleDialog";
 import Config from "../Config/Config";
@@ -350,6 +351,11 @@ const CreateUserComponent = props => {
       </div> */}
 
       <Card className={classes.card}>
+        <div className="tituloPage fondoAzul textoBlanco">
+          {/* <i className="material-icons tituloPage__icon">select_all</i> */}
+          <AccountCircleIcon />
+          <span className="tituloPage__texto">Crear usuario</span>
+        </div>
         <CardContent>
           <form className="col s12" onSubmit={handleSubmit}>
             <Grid container spacing={3}>
@@ -418,7 +424,7 @@ const CreateUserComponent = props => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} container justify="flex-end">
                 <Button
                   disabled={!validateForm()}
                   type="submit"
