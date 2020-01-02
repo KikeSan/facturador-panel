@@ -1,5 +1,9 @@
+@import "../Variables.scss";
 .navigation {
   a {
     text-transform: uppercase;
+  }
+  img {
+    margin: 12px;
   }
 }

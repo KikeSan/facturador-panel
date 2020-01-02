@@ -50,7 +50,11 @@ const ChangePasswordComponent = props => {
 
   return (
     <div className="change-password">
-      <div className="card blue-grey darken-1">
+      <div className="card fondoBlanco">
+        <div className="tituloPage fondoAzul textoBlanco">
+          <i className="material-icons tituloPage__icon">verified_user</i>
+          <span className="tituloPage__texto">Cambiar contraseña</span>
+        </div>
         <div className="card-content white-text">
           <div className="row">
             <div className="col s12">
@@ -61,14 +65,14 @@ const ChangePasswordComponent = props => {
               </h1>
             </div>
           </div>
-          <div className="row">
+          <div className="row mb0">
             <form className="col s12" onSubmit={handleSubmit}>
-              <div className="row">
+              <div className="row ">
                 <div className="input-field col s12">
                   <input
                     id="new_password"
                     type="password"
-                    className="validate white-text"
+                    className="validate textoGris"
                     value={newPassword}
                     onChange={event => setNewPassword(event.target.value)}
                   />
@@ -81,10 +85,10 @@ const ChangePasswordComponent = props => {
                 </div>
               </div>
 
-              <div className="row">
+              <div className="row mb0">
                 <div className="input-field col s12">
                   <button
-                    className="waves-effect btn"
+                    className="waves-effect btn right"
                     disabled={!validateForm()}
                     type="submit"
                   >

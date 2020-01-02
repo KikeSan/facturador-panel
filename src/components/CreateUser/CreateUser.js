@@ -26,13 +26,13 @@ const CreateUserComponent = props => {
   const [sapId, setSapId] = useState("");
 
   // Valida el ingreso de números
-  const isNumeric = (number) => {
+  const isNumeric = number => {
     const regex = /^[0-9\b]+$/;
-    if (number === '' || regex.test(number)) {
+    if (number === "" || regex.test(number)) {
       return true;
     }
     return false;
-  }
+  };
 
   const validateForm = () => {
     /**
@@ -75,7 +75,15 @@ const CreateUserComponent = props => {
       codSapValidation
     );
 
-    const isValid = nombresValidation && apellidosValidation && dniValidation && codTiendaValidation && codSapValidation ? true : false; return isValid;
+    const isValid =
+      nombresValidation &&
+      apellidosValidation &&
+      dniValidation &&
+      codTiendaValidation &&
+      codSapValidation
+        ? true
+        : false;
+    return isValid;
   };
 
   const handleSubmit = event => {
@@ -156,12 +164,22 @@ const CreateUserComponent = props => {
           <p className="center-align">{modalInformation.message}</p>
         </div>
         <div className="modal-footer">
-          <button className="waves-effect btn" onClick={() => setModalInformation({ classes: "" })} > OK </button>
+          <button
+            className="waves-effect btn"
+            onClick={() => setModalInformation({ classes: "" })}
+          >
+            {" "}
+            OK{" "}
+          </button>
         </div>
       </div>
 
       {/* Formulario de creación de usuarios */}
-      <div className="card blue-grey darken-2">
+      <div className="card fondoBlanco">
+        <div className="tituloPage fondoAzul textoBlanco">
+          <i className="material-icons tituloPage__icon">person_add</i>
+          <span className="tituloPage__texto">Crear usuario</span>
+        </div>
         <div className="card-content white-text">
           <div className="row">
             <div className="col s12">
@@ -170,55 +188,113 @@ const CreateUserComponent = props => {
               </h1>
             </div>
           </div>
-          <div className="row">
+          <div className="row mb0">
             <form className="col s12" onSubmit={handleSubmit}>
               {/* Nombres y apellidos */}
               <div className="row">
                 <div className="input-field col s6">
-                  <input id="nombres" maxLength="50" type="text" className="validate white-text" value={nombres} onChange={event => setNombres(event.target.value)} />
-                  <label htmlFor="nombres" className="grey-text text-lighten-3"> Nombres </label>
+                  <input
+                    id="nombres"
+                    maxLength="50"
+                    type="text"
+                    className="validate textoGris"
+                    value={nombres}
+                    onChange={event => setNombres(event.target.value)}
+                  />
+                  <label htmlFor="nombres" className="grey-text text-lighten-1">
+                    {" "}
+                    Nombres{" "}
+                  </label>
                 </div>
                 <div className="input-field col s6">
-                  <input id="apellidos" maxLength="50" type="text" className="validate white-text" value={apellidos} onChange={event => setApellidos(event.target.value)} />
-                  <label htmlFor="apellidos" className="grey-text text-lighten-3" > Apellidos </label>
+                  <input
+                    id="apellidos"
+                    maxLength="50"
+                    type="text"
+                    className="validate textoGris"
+                    value={apellidos}
+                    onChange={event => setApellidos(event.target.value)}
+                  />
+                  <label
+                    htmlFor="apellidos"
+                    className="grey-text text-lighten-1"
+                  >
+                    {" "}
+                    Apellidos{" "}
+                  </label>
                 </div>
               </div>
 
               <div className="row">
                 {/* Número de DNI */}
                 <div className="input-field col s6">
-                  <input id="dni" maxLength="8" type="text" className="validate white-text" value={dni} onChange={event => {
-                    if (isNumeric(event.target.value)) {
-                      setDni(event.target.value)
-                    }
-                  }} />
-                  <label htmlFor="dni" className="grey-text text-lighten-3"> Número de DNI </label>
+                  <input
+                    id="dni"
+                    maxLength="8"
+                    type="text"
+                    className="validate textoGris"
+                    value={dni}
+                    onChange={event => {
+                      if (isNumeric(event.target.value)) {
+                        setDni(event.target.value);
+                      }
+                    }}
+                  />
+                  <label htmlFor="dni" className="grey-text text-lighten-1">
+                    {" "}
+                    Número de DNI{" "}
+                  </label>
                   {/* <span className="helper-text grey-text text-lighten-1" data-error="wrong" data-success="right">Ingrese 8 dígitos</span> */}
                 </div>
                 {/* Código de tienda */}
                 <div className="input-field col s6">
-                  <input id="cod_tienda" maxLength="4" type="text" className="validate white-text" value={codTienda} onChange={event => { setCodTienda(event.target.value.toUpperCase()); }} />
-                  <label htmlFor="cod_tienda" className="grey-text text-lighten-3" > Código de tienda </label>
+                  <input
+                    id="cod_tienda"
+                    maxLength="4"
+                    type="text"
+                    className="validate textoGris"
+                    value={codTienda}
+                    onChange={event => {
+                      setCodTienda(event.target.value.toUpperCase());
+                    }}
+                  />
+                  <label
+                    htmlFor="cod_tienda"
+                    className="grey-text text-lighten-1"
+                  >
+                    {" "}
+                    Código de tienda{" "}
+                  </label>
                 </div>
               </div>
 
               {/* SAP Id */}
               <div className="row">
                 <div className="input-field col s6">
-                  <input id="sap_id" maxLength="10" type="text" className="validate white-text" value={sapId} onChange={event => {
-                    if (isNumeric(event.target.value)) {
-                      setSapId(event.target.value)
-                    }
-                  }} />
+                  <input
+                    id="sap_id"
+                    maxLength="10"
+                    type="text"
+                    className="validate textoGris"
+                    value={sapId}
+                    onChange={event => {
+                      if (isNumeric(event.target.value)) {
+                        setSapId(event.target.value);
+                      }
+                    }}
+                  />
 
-                  <label htmlFor="sap_id" className="grey-text text-lighten-3"> Código SAP </label>
+                  <label htmlFor="sap_id" className="grey-text text-lighten-1">
+                    {" "}
+                    Código SAP{" "}
+                  </label>
                 </div>
               </div>
 
-              <div className="row">
-                <div className="input-field col s6">
+              <div className="row mb0">
+                <div className="input-field col s12">
                   <button
-                    className="waves-effect btn"
+                    className="waves-effect btn right"
                     disabled={!validateForm()}
                     type="submit"
                   >

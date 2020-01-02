@@ -1,6 +1,6 @@
-import React from 'react';
-import Navigation from '../components/Navigation/Navigation';
-import CreateUserComponent from '../components/CreateUser/CreateUser';
+import React from "react";
+import Navigation from "../components/Navigation/Navigation";
+import CreateUserComponent from "../components/CreateUser/CreateUser";
 
 const CreateUser = () => (
   <div className="MainWrapper">
@@ -8,6 +8,5 @@ const CreateUser = () => (
     <CreateUserComponent />
   </div>
 );
-
 
 export default CreateUser;
