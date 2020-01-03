@@ -4,6 +4,7 @@ import StoreData from "../StoreData/StoreData";
 
 import "../../assets/styles/components/QRCard.scss";
 import logo from "../../assets/img/logo-qr.png";
+import logoNike from "../../assets/img/logo-qr-nike.png";
 import SelectAllIcon from "@material-ui/icons/SelectAll";
 
 // Componente funcional
@@ -12,15 +13,22 @@ const QRCard = () => {
   const [qrOptions, updateQROptions] = useState({
     className: "is-hidden",
     text: "",
-    storeName: "Buscando tienda ..."
+    storeName: "Buscando tienda ...",
+    color: "",
+    imageSettings: {
+      src: logo,
+      width: 93,
+      height: 25,
+      excavate: true
+    }
   });
 
-  const imageSettings = {
+  /* const imageSettings = {
     src: logo,
     width: 93,
     height: 25,
     excavate: true
-  };
+  }; */
 
   useEffect(() => {
     let isSubscribed = true;
@@ -30,10 +38,32 @@ const QRCard = () => {
         setTimeout(() => {
           if (!isSubscribed) return false;
 
+          let setcolor = "";
+          let setLogo = "";
+          const empresa = data.storeName.substring(0, 2).toLowerCase();
+          switch (empresa) {
+            case "ni":
+              setcolor = "#000000";
+              setLogo = logoNike;
+              break;
+
+            default:
+              setcolor = "#04234c";
+              setLogo = logo;
+              break;
+          }
+
           updateQROptions({
             className: "",
             text: data.qrString,
-            storeName: data.storeName
+            storeName: data.storeName,
+            color: setcolor,
+            imageSettings: {
+              src: setLogo,
+              width: 93,
+              height: 25,
+              excavate: true
+            }
           });
         }, 500);
       })
@@ -68,10 +98,10 @@ const QRCard = () => {
                 value={qrOptions.text}
                 size={256}
                 renderAs={"svg"}
-                fgColor={"#04234c"}
+                fgColor={qrOptions.color}
                 level={"Q"}
                 className={qrOptions.className}
-                imageSettings={imageSettings}
+                imageSettings={qrOptions.imageSettings}
               />
             </div>
           </div>
